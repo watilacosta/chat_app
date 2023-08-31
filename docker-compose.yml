@@ -1,0 +1,20 @@
+services:
+  web:
+    build: .
+    command: ./bin/dev
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  db:
+    image: postgres:13 # You can change the version if needed
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: chat_app_production
